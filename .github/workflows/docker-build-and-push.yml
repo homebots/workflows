@@ -26,6 +26,9 @@ on:
         required: false
       password:
         required: false
+      defaultBranch:
+        required: false
+        default: main
 
 jobs:
   build-and-publish-docker-image:
@@ -45,7 +48,7 @@ jobs:
           docker push ${{ inputs.org }}/${{ inputs.imageName }}:${{ github.sha }}
 
       - name: Publish
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/${{ inputs.defaultBranch }}'
         run: |
           docker tag ${{ inputs.org }}/${{ inputs.imageName }}:${{ github.sha }} ${{ inputs.org }}/${{ inputs.imageName }}:latest
           docker push ${{ inputs.org }}/${{ inputs.imageName }}
