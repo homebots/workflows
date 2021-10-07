@@ -1,4 +1,15 @@
 name: CICD
+description: |
+  Build and publish a docker image.
+  Requires at least an org and image name to work correctly.
+  Usage:
+
+  jobs:
+    build:
+      uses: homebots/workflows/.github/workflows/docker-build-and-push.yml@master
+      with:
+        org: 'taco'
+        imageName: 'cats'
 
 on: 
   workflow_call:
@@ -9,8 +20,6 @@ on:
       imageName:
         required: true
         type: string
-    
-    secrets:
       registry:
         required: false
       username:
@@ -26,9 +35,9 @@ jobs:
 
       - uses: docker/login-action@v1
         with:
-          registry: ${{ secrets.registry }} 
-          username: ${{ secrets.username }}
-          password: ${{ secrets.password }}
+          registry: ${{ inputs.registry }} 
+          username: ${{ inputs.username }}
+          password: ${{ inputs.password }}
 
       - name: Build
         run: |
