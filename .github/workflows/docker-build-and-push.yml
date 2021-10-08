@@ -22,12 +22,16 @@ on:
         type: string
       registry:
         required: false
+        type: string
       username:
         required: false
+        type: string
       password:
         required: false
+        type: string
       defaultBranch:
         required: false
+        type: string
         default: main
 
 jobs:
