@@ -30,10 +30,8 @@ on:
     secrets:
       username:
         required: false
-        type: string
       password:
         required: false
-        type: string
 
 jobs:
   build-and-publish-docker-image:
