@@ -1,15 +1,15 @@
 name: CICD
-description: |
-  Build and publish a docker image.
-  Requires at least an org and image name to work correctly.
-  Usage:
 
-  jobs:
-    build:
-      uses: homebots/workflows/.github/workflows/docker-build-and-push.yml@master
-      with:
-        org: 'taco'
-        imageName: 'cats'
+# Build and publish a docker image.
+# Requires at least an org and image name to work correctly.
+# Usage:
+#
+# jobs:
+#   build:
+#     uses: homebots/workflows/.github/workflows/docker-build-and-push.yml@master
+#     with:
+#       org: 'taco'
+#       imageName: 'cats'
 
 on: 
   workflow_call:
