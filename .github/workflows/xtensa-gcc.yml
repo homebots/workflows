@@ -1,0 +1,33 @@
+name: esp8266 gcc
+
+# Build and publish a docker image.
+# Requires at least an org and image name to work correctly.
+# Usage:
+#
+# jobs:
+#   build:
+#     uses: homebots/workflows/.github/workflows/xtensa-gcc.yml@master
+#     with:
+#       path: './path/to/project'
+
+on: 
+  workflow_call:
+    inputs:
+      path:
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          cd ${{ inputs.path }}
+          mkdir -m a+w -p firmware build
+          docker run --rm -u 1000:1000 -v $PWD:/home/project:rw homebotz/xtensa-gcc:latest make
+      - uses: actions/upload-artifact
+        with:
+          name: firmware
+          path: firmware
