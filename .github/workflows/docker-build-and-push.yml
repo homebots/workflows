@@ -11,7 +11,7 @@ name: CICD
 #       org: 'taco'
 #       imageName: 'cats'
 
-on: 
+on:
   workflow_call:
     inputs:
       org:
@@ -36,22 +36,35 @@ on:
 jobs:
   build-and-publish-docker-image:
     runs-on: ubuntu-18.04
+
+    env:
+      TAG: ${{ inputs.org }}/${{ inputs.imageName }}:${{ github.sha }}
+      LATEST_TAG: ${{ inputs.org }}/${{ inputs.imageName }}:latest
+
     steps:
       - uses: actions/checkout@v2
 
       - uses: docker/login-action@v1
         with:
-          registry: ${{ inputs.registry }} 
+          registry: ${{ inputs.registry }}
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
 
-      - name: Build
-        run: |
-          docker build -t ${{ inputs.org }}/${{ inputs.imageName }}:${{ github.sha }} .
-          docker push ${{ inputs.org }}/${{ inputs.imageName }}:${{ github.sha }}
+      - name: Build branch
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ env.TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - name: Publish
+      - name: Build latest
         if: github.ref == 'refs/heads/${{ inputs.defaultBranch }}'
-        run: |
-          docker tag ${{ inputs.org }}/${{ inputs.imageName }}:${{ github.sha }} ${{ inputs.org }}/${{ inputs.imageName }}:latest
-          docker push ${{ inputs.org }}/${{ inputs.imageName }}
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ env.LATEST_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
