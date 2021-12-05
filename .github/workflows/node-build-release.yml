@@ -5,6 +5,7 @@ on:
     inputs:
       branches:
         required: false
+        type: string
       build:
         required: false
         default: true
