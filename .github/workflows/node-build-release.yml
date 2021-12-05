@@ -11,6 +11,11 @@ on:
         required: false
         default: dist
         type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
+      GITHUB_TOKEN:
+        required: true
       
 jobs:
   build:
