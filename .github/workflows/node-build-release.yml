@@ -41,5 +41,5 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - runs: echo Release ${{ steps.release.outputs.new_release_version }}
-      - runs: echo ${{ steps.release.outputs.new_release_notes }}
+      - run: echo Release ${{ steps.release.outputs.new_release_version }}
+      - run: echo ${{ steps.release.outputs.new_release_notes }}
