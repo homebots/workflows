@@ -10,6 +10,10 @@ on:
         required: false
         default: true
         type: boolean
+      path:
+        required: false
+        default: '.'
+        type: string
     secrets:
       NPM_TOKEN:
         required: true
@@ -33,7 +37,7 @@ jobs:
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
       - run: chrome --version
-
+      - run: cd ${{ inputs.path }}
       - name: Install dependencies and build library
         if: inputs.build
         run: npm ci && npm run test && npm run build
