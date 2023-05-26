@@ -35,7 +35,7 @@ on:
 
 jobs:
   build-and-publish-docker-image:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     env:
       TAG: ${{ inputs.org }}/${{ inputs.imageName }}:${{ github.sha }}
