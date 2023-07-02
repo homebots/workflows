@@ -31,8 +31,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
-          cache: "npm"
+          node-version: latest
+          cache: npm
 
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
