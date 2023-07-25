@@ -15,6 +15,10 @@ on:
         required: false
         default: "."
         type: string
+      registry:
+        required: false
+        default: ""
+        type: string
     secrets:
       NPM_TOKEN:
         required: true
@@ -42,6 +46,12 @@ jobs:
       - name: Install dependencies and build library
         if: inputs.build
         run: npm i && npm run test && npm run build
+      
+      - name: Set publish registry
+        if: inputs.registry
+        run: |
+          echo "registry=${{ inputs.registry }}" >> .npmrc
+          cat .npmrc
 
       - name: Semantic Release
         id: release
