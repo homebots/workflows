@@ -48,9 +48,10 @@ jobs:
     name: Build/Release
     runs-on: ubuntu-latest
     steps:
-      - run: cd ${{ inputs.path }}
       - name: Checkout
         uses: actions/checkout@v2
+
+      - run: cd ${{ inputs.path }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
