@@ -47,10 +47,8 @@ jobs:
   build:
     name: Build/Release
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ inputs.path }}
     steps:
+      - run: cd ${{ inputs.path }}
       - name: Checkout
         uses: actions/checkout@v2
 
