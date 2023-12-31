@@ -1,5 +1,19 @@
 name: Build/Release
 
+# Automate releases to a NPM-compatible registry
+#
+# Usage:
+#    name: CICD
+#    on:
+#      push:
+#
+#    jobs:
+#      release:
+#        uses: homebots/workflows/.github/workflows/node-build-release.yml@master
+#        secrets:
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 on:
   workflow_call:
     inputs:
@@ -46,7 +60,7 @@ jobs:
       - name: Install dependencies and build library
         if: inputs.build
         run: npm i && npm run test && npm run build
-      
+
       - name: Set publish registry
         if: inputs.registry
         run: |

@@ -1,3 +1,3 @@
-# Homebots workflows
+# Reusable workflows
 
-Shared workflows used by HomeBots organisation
+Shared workflows used by HomeBots and other organisations
