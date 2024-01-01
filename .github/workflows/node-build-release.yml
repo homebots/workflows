@@ -51,18 +51,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: cd ${{ inputs.path }}
-
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: latest
           cache: npm
+          cache-dependency-path: ${{ inputs.path }}/package-lock.json
 
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
       - run: chrome --version
-
+      - run: cd ${{ inputs.path }}
       - name: Install dependencies and build library
         if: inputs.build
         run: npm i && npm run test && npm run build
